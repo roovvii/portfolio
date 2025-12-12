@@ -68,3 +68,39 @@ export const workPermitContent = {
   additionalInfo:
     'This is placeholder text. You can update it with specific work authorization, visa details, or relocation preferences.',
 };
+
+// Static timeline content – work & education
+export const timelineContent = [
+  {
+    timelineType: 'work' as const,
+    name: 'Delphi Software House LLP',
+    title: 'Java Developer',
+    techStack: 'Java, Spring Boot, SQL',
+    summaryPoints: [
+      'Developed and maintained backend services for enterprise applications.',
+      'Collaborated with cross-functional teams to design and implement new features.',
+    ],
+    dateRange: 'Jan 2021 – May 2023',
+  },
+  {
+    timelineType: 'work' as const,
+    name: 'UAB Student Media',
+    title: 'Social Media Manager',
+    techStack: 'Content Strategy, Analytics, Social Platforms',
+    summaryPoints: [
+      'Managed social media presence for student media channels.',
+      'Optimized content for engagement and audience growth.',
+    ],
+    dateRange: '1+ year',
+  },
+  {
+    timelineType: 'education' as const,
+    name: 'Your University Name',
+    title: 'Your Degree (e.g., B.S. in Computer Science)',
+    techStack: 'Core CS, Software Development, Databases',
+    summaryPoints: [
+      'Completed coursework in software engineering, data structures, and databases.',
+    ],
+    dateRange: 'Years you studied here',
+  },
+];

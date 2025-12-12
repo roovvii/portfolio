@@ -1,21 +1,8 @@
 // queries/getTimeline.ts
-import datoCMSClient from './datoCMSClient';
 import { TimelineItem } from '../types';
+import { timelineContent } from './localContent';
 
-const GET_TIMELINE = `
-{
-  allTimelines {
-   	name
-    timelineType
-    title
-    techStack
-    summaryPoints
-    dateRange
-  }
-}
-`;
-
+// We no longer fetch from DatoCMS. Instead, we return static local content.
 export async function getTimeline(): Promise<TimelineItem[]> {
-  const data = await datoCMSClient.request<{ allTimelines: TimelineItem[] }>(GET_TIMELINE);
-  return data.allTimelines;
+  return timelineContent as TimelineItem[];
 }
