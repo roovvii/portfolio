@@ -1,25 +1,19 @@
 // queries/getContactMe.ts
-import datoCMSClient from './datoCMSClient';
 import { ContactMe } from '../types';
+import { contactMeContent } from './localContent';
 
-const GET_CONTACT_ME = `
-  query {
-    contactMe {
-      profilePicture {
-        url
-      }
-      name
-      title
-      summary
-      companyUniversity
-      linkedinLink
-      email
-      phoneNumber
-    }
-  }
-`;
-
+// We no longer fetch from DatoCMS. Instead, we return static local content.
 export async function getContactMe(): Promise<ContactMe> {
-  const data = await datoCMSClient.request<{ contactMe: ContactMe }>(GET_CONTACT_ME);
-  return data.contactMe;
+  return {
+    profilePicture: {
+      url: contactMeContent.profilePictureUrl,
+    },
+    name: contactMeContent.name,
+    title: contactMeContent.title,
+    summary: contactMeContent.summary,
+    companyUniversity: contactMeContent.companyUniversity,
+    linkedinLink: contactMeContent.linkedinLink,
+    email: contactMeContent.email,
+    phoneNumber: contactMeContent.phoneNumber,
+  };
 }

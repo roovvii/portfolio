@@ -104,3 +104,19 @@ export const timelineContent = [
     dateRange: 'Years you studied here',
   },
 ];
+
+// Static "Contact Me" section content
+export const contactMeContent = {
+  // You can later replace this with your real image in /public and update the path.
+  profilePictureUrl: '/profile.jpg',
+
+  name: 'Ravi Palavai',
+  title: 'Java Full Stack Developer',
+  summary:
+    'I build scalable backend services and modern, responsive web applications. Open to full-time roles and exciting opportunities in software development.',
+
+  companyUniversity: 'University of Alabama at Birmingham',
+  linkedinLink: 'https://www.linkedin.com/in/ravi-palavai',
+  email: 'ravipalavai07@gmail.com',
+  phoneNumber: '+1 (205) 587-1654',
+};
