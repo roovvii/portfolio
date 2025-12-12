@@ -1,20 +1,19 @@
-// queries/getCertifications.ts
-import datoCMSClient from './datoCMSClient';
-import { Certification } from '../types';
+// src/queries/getCertifications.ts
 
-const GET_CERTIFICATIONS = `
-  query {
-    allCertifications {
-      title
-      issuer
-      issuedDate
-      link
-      iconName
-    }
-  }
-`;
+import { Certification } from '../types';
+import { certificationsContent } from './localContent';
 
 export async function getCertifications(): Promise<Certification[]> {
-  const data = await datoCMSClient.request<{ allCertifications: Certification[] }>(GET_CERTIFICATIONS);
-  return data.allCertifications;
+  return certificationsContent.map((cert) => ({
+    title: cert.title,
+    issuer: cert.organization,
+
+    // issuedDate is a STRING in your type
+    issuedDate: `${cert.year}-01-01`,
+
+    link: cert.credentialLink,
+
+    // iconName is a string identifier used by your UI
+    iconName: 'FaCertificate',
+  }));
 }

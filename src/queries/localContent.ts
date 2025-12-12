@@ -120,3 +120,31 @@ export const contactMeContent = {
   email: 'ravipalavai07@gmail.com',
   phoneNumber: '+1 (205) 587-1654',
 };
+
+// Static certifications content
+export const certificationsContent = [
+  {
+    title: 'Cisco Certified Network Associate (CCNA)',
+    organization: 'Cisco',
+    year: '2023',
+    credentialLink: '#',
+  },
+  {
+    title: 'Cybersecurity Essentials',
+    organization: 'Cisco',
+    year: '2023',
+    credentialLink: '#',
+  },
+  {
+    title: 'IoT Certification',
+    organization: 'Cisco',
+    year: '2023',
+    credentialLink: '#',
+  },
+  {
+    title: 'C Language Associate (CLA)',
+    organization: 'Cisco',
+    year: '2022',
+    credentialLink: '#',
+  },
+];
