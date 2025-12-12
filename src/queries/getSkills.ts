@@ -1,19 +1,17 @@
-// queries/getTimeline.ts
-import datoCMSClient from './datoCMSClient';
+// src/queries/getSkills.ts
+
 import { Skill } from '../types';
+import { skillsContent } from './localContent';
 
-const GET_SKILLS = `
-{
-  allSkills(orderBy: category_ASC) {
-    name
-    category
-    description
-    icon
-  }
-}
-`;
-
+// We no longer fetch from DatoCMS. Instead, we map static skill names
+// into full Skill objects that the UI expects.
 export async function getSkills(): Promise<Skill[]> {
-  const data = await datoCMSClient.request<{ allSkills: Skill[] }>(GET_SKILLS);
-  return data.allSkills;
+  return skillsContent.map((name) => ({
+    name,
+    // You can later customize categories per skill if you want
+    category: 'General',
+    // Fill these out later if you want rich descriptions/icons in the UI
+    description: '',
+    icon: '',
+  }));
 }
