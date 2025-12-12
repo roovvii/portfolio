@@ -1,19 +1,14 @@
 // queries/getWorkPermit.ts
-import datoCMSClient from './datoCMSClient';
 import { WorkPermit } from '../types';
+import { workPermitContent } from './localContent';
 
-const GET_WORK_PERMIT = `
-  query {
-    workPermit {
-      visaStatus
-      expiryDate
-      summary
-      additionalInfo
-    }
-  }
-`;
-
+// We no longer fetch from DatoCMS. Instead, we return static local content.
 export async function getWorkPermit(): Promise<WorkPermit> {
-  const data = await datoCMSClient.request<{ workPermit: WorkPermit }>(GET_WORK_PERMIT);
-  return data.workPermit;
+  return {
+    visaStatus: workPermitContent.visaStatus,
+    summary: workPermitContent.summary,
+    additionalInfo: workPermitContent.additionalInfo,
+    // Convert the string in localContent to a Date object, as the type expects
+    expiryDate: new Date(workPermitContent.expiryDate),
+  };
 }

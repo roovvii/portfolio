@@ -51,3 +51,20 @@ export const contactContent = {
   email: 'ravipalavai07@gmail.com',
   linkedin: 'https://www.linkedin.com/in/ravi-palavai',
 };
+
+// Static work permit content – update this later with your real details
+export const workPermitContent = {
+  // This shows up inside the <strong>…</strong> text
+  visaStatus: 'Update this with your real status (e.g., F-1 OPT, H-1B, Green Card, etc.)',
+
+  // Store as a string here; we’ll convert it to a Date object in getWorkPermit.ts
+  expiryDate: '2030-01-01',
+
+  // Main summary paragraph
+  summary:
+    'I am currently authorized to work and excited about opportunities to build valuable experience and grow my career.',
+
+  // Extra line shown below the summary
+  additionalInfo:
+    'This is placeholder text. You can update it with specific work authorization, visa details, or relocation preferences.',
+};
