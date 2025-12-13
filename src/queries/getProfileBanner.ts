@@ -14,15 +14,21 @@ export async function getProfileBanner(): Promise<ProfileBanner> {
 
     // This is the "Resume" link in the banner buttons
     resumeLink: {
-      // Replace with your actual resume URL later (Google Drive, etc.)
-      url: '#',
-    },
+  url: '/Ravi.Palavai.pdf',
+},
+
 
     // This powers the LinkedIn button in the banner
     linkedinLink: 'https://www.linkedin.com/in/ravi-palavai',
 
     // This is the short summary text in the hero section
-    profileSummary:
-      'Java Full Stack Developer with experience building scalable backend services and clean, modern web UIs.',
+    profileSummary: `
+Full Stack Engineer with 7+ years of experience designing and delivering scalable enterprise and financial applications.
+Specialized in building secure, cloud-native Java/Spring Boot microservices and dynamic front-end interfaces with React
+and Angular. Skilled at modernizing legacy systems, improving performance, and driving automation across banking,
+insurance, and investment domains. Passionate about writing clean, maintainable code that enhances system reliability and
+user experience while aligning technology solutions with business needs.
+`.trim(),
+
   };
 }
