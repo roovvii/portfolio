@@ -23,11 +23,11 @@
 }
 
 .animate.netflix-logo {
-  animation: zoomOut 3s forwards ease-in-out;
+  animation: zoomOut 1.3s forwards ease-in;
 }
 
 @keyframes zoomOut {
-  0%, 80% {
+  0%, 20% {
     transform: scale(0.8);
     opacity: 1;
   }
