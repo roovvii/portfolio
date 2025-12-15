@@ -1,74 +1,151 @@
 .continue-watching-row {
   padding: 20px;
   color: #fff;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
-.continue-watching-row:hover {
- cursor: pointer;
-}
-
-.row-title {
-  font-size: 1.5rem;
+.continue-watching-row .row-title {
+  font-size: 2rem;
   margin-bottom: 10px;
 }
 
-.card-row {
+/* Wrapper for chevrons + fades */
+.continue-watching-row .cw-row-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Row */
+.continue-watching-row .card-row {
   display: flex;
-  gap: 10px;
+  gap: 20px;
+
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+
   overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
   padding-bottom: 10px;
-  scrollbar-width: none; /* For Firefox */
+
+  scroll-snap-type: x mandatory;
+
+  /* Hide scrollbar but keep scroll */
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* old Edge/IE */
 }
 
-.card-row::-webkit-scrollbar {
-  display: none; /* For Chrome, Safari, and Edge */
+.continue-watching-row .card-row::-webkit-scrollbar {
+  height: 0;
+  display: none;
 }
 
-.pick-card {
+/* Cards */
+.continue-watching-row .pick-card {
   position: relative;
   min-width: 150px;
+  height: 200px;
   flex: 0 0 auto;
+  scroll-snap-align: start;
+
   border-radius: 5px;
   overflow: hidden;
   transition: transform 0.3s ease;
+  text-decoration: none; /* since it's a Link */
 }
 
-.pick-card:hover {
-  transform: scale(1.05); /* Slight zoom effect on hover */
+.continue-watching-row .pick-card:hover {
+  transform: scale(1.05);
 }
 
-.pick-image {
+/* Image */
+.continue-watching-row .pick-image {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
 }
 
-.overlay {
+/* Overlay + label: ALWAYS visible */
+.continue-watching-row .overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Blackish overlay */
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 1;
-  transition: opacity 0.3s ease;
+
+  opacity: 1; /* always visible */
+  transition: background-color 0.3s ease;
 }
 
-.pick-card:hover .overlay {
-  opacity: 1;
+.continue-watching-row .pick-card:hover .overlay {
+  background-color: rgba(0, 0, 0, 0.60); /* darker on hover */
 }
 
-.pick-label {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.continue-watching-row .pick-label {
   color: #fff;
   font-size: 1rem;
   font-weight: bold;
   text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Chevrons */
+.continue-watching-row .cw-chevron {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  color: #fff;
+
+  background: rgba(20, 20, 20, 0.65);
+  backdrop-filter: blur(2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.continue-watching-row .cw-chevron:hover {
+  background: rgba(20, 20, 20, 0.85);
+}
+
+.continue-watching-row .cw-chevron-left {
+  left: 8px;
+}
+
+.continue-watching-row .cw-chevron-right {
+  right: 8px;
+}
+
+/* Fades */
+.continue-watching-row .cw-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 90px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.continue-watching-row .cw-fade-left {
+  left: 0;
+  background: linear-gradient(to right, rgba(20, 20, 20, 0.95), rgba(20, 20, 20, 0));
+}
+
+.continue-watching-row .cw-fade-right {
+  right: 0;
+  background: linear-gradient(to left, rgba(20, 20, 20, 0.95), rgba(20, 20, 20, 0));
 }
