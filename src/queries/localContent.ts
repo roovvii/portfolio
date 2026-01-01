@@ -55,19 +55,17 @@ export const contactContent = {
 // Static work permit content – update this later with your real details
 export const workPermitContent = {
   // This shows up inside the <strong>…</strong> text
-  visaStatus: 'Update this with your real status (e.g., F-1 OPT, H-1B, Green Card, etc.)',
+  visaStatus: 'F-1 OPT',
 
-  // Store as a string here; we’ll convert it to a Date object in getWorkPermit.ts
+  // Keep this if your page needs it; otherwise we can remove it later
   expiryDate: '2030-01-01',
 
   // Main summary paragraph
   summary:
-    'I am currently authorized to work and excited about opportunities to build valuable experience and grow my career.',
-
-  // Extra line shown below the summary
-  additionalInfo:
-    'This is placeholder text. You can update it with specific work authorization, visa details, or relocation preferences.',
+    'I’m currently authorized to work in the U.S. on F-1 OPT and I’m eligible for the STEM OPT extension. No immediate sponsorship is required. I’m happy to share work authorization details and provide documentation as needed.',
+     additionalInfo: '', // <-- add this (or put a real extra line)
 };
+
 
 // Static timeline content – work & education
 export const timelineContent = [
