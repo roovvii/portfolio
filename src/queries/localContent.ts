@@ -1,4 +1,134 @@
 // src/localContent.ts
+import type { IconType } from 'react-icons';
+import { FaAws, FaDocker, FaGitAlt, FaJava, FaReact } from 'react-icons/fa';
+import {
+  SiApachekafka,
+  SiApachespark,
+  SiElasticsearch,
+  SiGitlab,
+  SiGrafana,
+  SiHibernate,
+  SiJenkins,
+  SiJunit5,
+  SiKubernetes,
+  SiMicrosoftazure,
+  SiMongodb,
+  SiMysql,
+  SiOracle,
+  SiPostgresql,
+  SiPostman,
+  SiPrometheus,
+  SiRedis,
+  SiSpring,
+  SiSpringboot,
+  SiTypescript,
+  SiApachemaven,
+} from 'react-icons/si';
+import { FiCpu, FiShare2, FiTool, FiZap } from 'react-icons/fi';
+
+
+
+// ===== Skills Page (Netflix rows) =====
+
+export type SkillItem = { label: string; icon: IconType };
+export type SkillCategory = { title: string; items: SkillItem[] };
+
+export const skillsPageContent: {
+  coreStack: SkillItem[];
+  categories: SkillCategory[];
+} = {
+  coreStack: [
+    { label: 'Java', icon: FaJava },
+    { label: 'Spring Boot', icon: SiSpringboot },
+    { label: 'REST APIs', icon: FiShare2 },
+    { label: 'React', icon: FaReact },
+    { label: 'TypeScript', icon: SiTypescript },
+    { label: 'PostgreSQL', icon: SiPostgresql },
+    { label: 'Apache Kafka', icon: SiApachekafka },
+    { label: 'Docker', icon: FaDocker },
+    { label: 'Kubernetes', icon: SiKubernetes },
+    { label: 'AWS', icon: FaAws },
+  ],
+  categories: [
+    {
+      title: 'Languages & Frameworks',
+      items: [
+        { label: 'Java', icon: FaJava },
+        { label: 'Spring Boot', icon: SiSpringboot },
+        { label: 'Spring Data', icon: SiSpring },
+        { label: 'Hibernate', icon: SiHibernate },
+        { label: 'REST APIs', icon: FiShare2 },
+        { label: 'SQL', icon: FiCpu },
+      ],
+    },
+    {
+      title: 'Cloud & DevOps',
+      items: [
+        { label: 'AWS', icon: FaAws },
+        { label: 'Azure', icon: SiMicrosoftazure },
+        { label: 'Docker', icon: FaDocker },
+        { label: 'Kubernetes', icon: SiKubernetes },
+        { label: 'Jenkins', icon: SiJenkins },
+        { label: 'GitLab CI/CD', icon: SiGitlab },
+      ],
+    },
+    {
+      title: 'Databases',
+      items: [
+        { label: 'PostgreSQL', icon: SiPostgresql },
+        { label: 'Oracle', icon: SiOracle },
+        { label: 'MySQL', icon: SiMysql },
+        { label: 'MongoDB', icon: SiMongodb },
+        { label: 'Redis', icon: SiRedis },
+      ],
+    },
+    {
+      title: 'Messaging & Streaming',
+      items: [
+        { label: 'Apache Kafka', icon: SiApachekafka },
+        { label: 'Apache Spark', icon: SiApachespark },
+      ],
+    },
+    {
+      title: 'Testing & QA',
+      items: [
+        { label: 'JUnit', icon: SiJunit5 },
+        { label: 'Mockito', icon: FiTool },
+        { label: 'Postman', icon: SiPostman },
+        { label: 'Rest Assured', icon: FiZap },
+      ],
+    },
+    {
+      title: 'Monitoring & Logging',
+      items: [
+        { label: 'Prometheus', icon: SiPrometheus },
+        { label: 'Grafana', icon: SiGrafana },
+        { label: 'ELK Stack', icon: SiElasticsearch },
+        { label: 'Log4j', icon: FiTool },
+      ],
+    },
+    {
+      title: 'Tools & Platforms',
+      items: [
+        { label: 'Git', icon: FaGitAlt },
+        { label: 'Maven', icon: SiApachemaven },
+        { label: 'Kafka Streams', icon: SiApachekafka },
+        { label: 'EKS/AKS', icon: SiKubernetes },
+      ],
+    },
+    {
+      title: 'Architecture & Design',
+      items: [
+        { label: 'Microservices Architecture', icon: FiCpu },
+        { label: 'Event-Driven Systems', icon: SiApachekafka },
+        { label: 'Distributed Systems', icon: FiShare2 },
+        { label: 'API Design', icon: FiTool },
+        { label: 'System Performance Optimization', icon: FiZap },
+      ],
+    },
+  ],
+};
+
 
 export const heroContent = {
   name: 'Ravi Palavai',

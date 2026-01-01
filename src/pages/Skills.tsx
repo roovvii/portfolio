@@ -1,78 +1,116 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import './Skills.css';
-import { getSkills } from '../queries/getSkills';
+import { skillsPageContent } from '../queries/localContent';
 
-import { FaReact, FaNodeJs, FaAws, FaDocker, FaGitAlt, FaJava } from 'react-icons/fa';
-import { SiRubyonrails, SiTypescript, SiPostgresql, SiMysql, SiKubernetes, SiGooglecloud, SiSpringboot, SiPhp, SiNetlify, SiHeroku, SiHtml5, SiCss3, SiRabbitmq, SiImessage } from 'react-icons/si';
-import { Skill } from '../types';
-
-const iconMap: { [key: string]: JSX.Element } = {
-  SiRubyonrails: <SiRubyonrails />,
-  FaNodeJs: <FaNodeJs />,
-  SiSpringboot: <SiSpringboot />,
-  FaJava: <FaJava />,
-  SiPhp: <SiPhp />,
-  FaReact: <FaReact />,
-  SiTypescript: <SiTypescript />,
-  FaAws: <FaAws />,
-  FaDocker: <FaDocker />,
-  SiPostgresql: <SiPostgresql />,
-  SiMysql: <SiMysql />,
-  SiKubernetes: <SiKubernetes />,
-  SiGooglecloud: <SiGooglecloud />,
-  SiHeroku: <SiHeroku />,
-  SiNetlify: <SiNetlify />,
-  SiRabbitmq: <SiRabbitmq />,
-  SiImessage: <SiImessage />,
+type SkillItem = {
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
 };
 
+// Constant speed for ALL rows (pixels per second). Lower = slower.
+const SPEED_PX_PER_SEC = 35;
 
-const Skills: React.FC = () => {
+function SectionTitle({ title }: { title: string }) {
+  return (
+    <div className="skills-section-title">
+      <span className="skills-red-line" />
+      <h2 className="skills-heading">{title}</h2>
+    </div>
+  );
+}
 
-  const [skillsData, setSkillsData] = useState<Skill[]>([]);
+function MarqueeRow({ items }: { items: SkillItem[] }) {
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const groupRef = useRef<HTMLDivElement | null>(null);
+  const [durationSeconds, setDurationSeconds] = useState<number>(60);
 
-  useEffect(() => {
-    async function fetchSkills() {
-      const data = await getSkills();
-      setSkillsData(data);
-    }
+  // Make sure small categories (like 2 items) are repeated enough so the track is long.
+  const filled = useMemo(() => {
+    const out: SkillItem[] = [...items];
+    // Repeat until we have a reasonable minimum count
+    while (out.length < 18) out.push(...items);
+    return out;
+  }, [items]);
 
-    fetchSkills()
-  }, []);
+  useLayoutEffect(() => {
+    const viewport = viewportRef.current;
+    const group = groupRef.current;
+    if (!viewport || !group) return;
 
-  if (skillsData.length === 0) return <div>Loading...</div>;
+    const compute = () => {
+      // Ensure group is at least wider than the viewport (helps avoid gaps)
+      const viewportW = viewport.getBoundingClientRect().width;
+      const groupW = group.scrollWidth;
 
-  const skillsByCategory = skillsData.reduce((acc: any, skill: any) => {
-    if (!acc[skill.category]) acc[skill.category] = [];
-    acc[skill.category].push(skill);
-    return acc;
-  }, {});
+      // Distance traveled per loop = width of ONE group
+      const distancePx = Math.max(groupW, viewportW * 1.2);
 
+      // Duration so that px/sec is constant across ALL rows
+      const seconds = distancePx / SPEED_PX_PER_SEC;
+
+      // Keep it slow and stable (avoid extremely short durations)
+      setDurationSeconds(Math.max(35, Math.round(seconds)));
+    };
+
+    compute();
+
+    // Recompute on resize (responsive)
+    const ro = new ResizeObserver(compute);
+    ro.observe(viewport);
+    ro.observe(group);
+
+    return () => ro.disconnect();
+  }, [filled]);
 
   return (
-    <div className="skills-container">
-      {Object.keys(skillsByCategory).map((category, index) => (
-        <div key={index} className="skill-category">
-          <h3 className="category-title">{category}</h3>
-          <div className="skills-grid">
-            {skillsByCategory[category].map((skill: any, idx: number) => (
-              <div key={idx} className="skill-card">
-                <div className="icon">{iconMap[skill.icon] || <FaReact />}</div>
-                <h3 className="skill-name">
-                  {skill.name.split('').map((letter: any, i: number) => (
-                    <span key={i} className="letter" style={{ animationDelay: `${i * 0.05}s` }}>
-                      {letter}
-                    </span>
-                  ))}
-                </h3>
-                <p className="skill-description">{skill.description}</p>
-              </div>
-            ))}
-          </div>
+    <div className="skills-marquee" ref={viewportRef}>
+      <div
+        className="skills-track"
+        style={{ ['--marquee-duration' as any]: `${durationSeconds}s` }}
+      >
+        <div className="skills-group" ref={groupRef}>
+          {filled.map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <span className="skills-chip" key={`a-${item.label}-${idx}`}>
+                <Icon className="skills-chip-icon" />
+                <span className="skills-chip-text">{item.label}</span>
+              </span>
+            );
+          })}
         </div>
+
+        {/* Duplicate group for true seamless loop */}
+        <div className="skills-group" aria-hidden="true">
+          {filled.map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <span className="skills-chip" key={`b-${item.label}-${idx}`}>
+                <Icon className="skills-chip-icon" />
+                <span className="skills-chip-text">{item.label}</span>
+              </span>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function Skills() {
+  return (
+    <div className="skills-page">
+      <section className="skills-section">
+        <SectionTitle title="Core Stack" />
+        <MarqueeRow items={skillsPageContent.coreStack} />
+      </section>
+
+      {skillsPageContent.categories.map((cat) => (
+        <section className="skills-section" key={cat.title}>
+          <SectionTitle title={cat.title} />
+          <MarqueeRow items={cat.items} />
+        </section>
       ))}
     </div>
   );
-};
-
-export default Skills;
+}
